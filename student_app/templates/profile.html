@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ profile.full_name }}'s Profile</h2>
+    
+    <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="img-thumbnail" width="150">
+
+    <p><strong>Roll Number:</strong> {{ profile.roll_number }}</p>
+    {% if session_id %}
+        <p><strong>Session ID:</strong> {{ session_id }}</p>
+    {% else %}
+        <p><strong>Session ID:</strong> Not Available</p>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Update Profile</button>
+    </form>
+
+    <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout</a>
+</div>
+{% endblock %}
